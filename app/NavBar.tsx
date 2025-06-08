@@ -1,8 +1,15 @@
+'use client';
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation';
 import React from 'react'
 import { LiaPiggyBankSolid } from "react-icons/lia";
+import classNames from 'classnames';
 
 const NavBar = () => {
+    const currentPath = usePathname();
+    console.log('Current Path:', currentPath);
+
 const links = [
     { label: 'Dashboard', href: '/' },
     { label: 'Transactions', href: '/transactions' },
@@ -15,7 +22,11 @@ const links = [
             {links.map(link => 
             <Link 
             key={link.href} 
-            className='text-zinc-500 hover:text-zinc-800 transition-colors' 
+            className={classNames({
+                'text-zinc-900': link.href === currentPath,
+                'text-zinc-500': link.href !== currentPath,
+                'hover:text-zinc-800 transition-colors': true
+            })}
             href={link.href}>{link.label}</Link>)}
         </ul>
     </nav>
